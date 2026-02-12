@@ -1,20 +1,20 @@
 #assignment_question_three.py
 import string
 
-text_file = open("sample-file.txt", 'r')
+text_file = open("sample-file.txt", 'r') #open file
 
-cleaned_lines = []
-original_lines = []
+cleaned_lines = [] #list for cleaned lines
+original_lines = [] #list for the original lines
 for line in text_file:
-    original_lines.append(line.strip())
-    words=line.split()
-    words = [word.strip(string.punctuation).lower() for word in words]
-    words = [word for word in words if len(word) >= 2]
-    cleaned_lines.append("".join(words))
+    original_lines.append(line.strip()) #add to the list of original lines, without the leading, trailing whitespace
+    words=line.split() #words into list
+    words = [word.strip(string.punctuation).lower() for word in words] #list comprehension for stripping punct, to lowercase
+    words = [word for word in words if len(word) >= 2] #only keep the words with more than 2 characters
+    cleaned_lines.append("".join(words)) #join the words together without any spaces
 
-repeated_dictionary = {}
+repeated_dictionary = {} #used for counting
 
-for i in range(len(cleaned_lines)):
+for i in range(len(cleaned_lines)): #iterate through, count, then if it shows up more than once then put into dictionary
     count = cleaned_lines.count(cleaned_lines[i])
     if count > 1 and len(cleaned_lines[i])>0:
         if cleaned_lines[i] in repeated_dictionary:
@@ -23,8 +23,8 @@ for i in range(len(cleaned_lines)):
             repeated_dictionary[cleaned_lines[i]] = [i+1]
 
 
-print(f"Number of sets: {len(repeated_dictionary)}")
-first_two_count = 0
+print(f"Number of sets: {len(repeated_dictionary)}") #counts the number of keys
+first_two_count = 0 #used so that only the first two will be printed
 
 for key, value in repeated_dictionary.items():
     if first_two_count < 2:
